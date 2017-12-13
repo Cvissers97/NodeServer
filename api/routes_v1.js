@@ -13,7 +13,6 @@ routes.delete('/delete', function(req, res){
 	if(index > -1){
 		names.splice(index, 1);	
 	}
-	res.contentType('application/json');
 	res.status(200);
 	res.json({'Names' : names});
 });
@@ -24,23 +23,51 @@ routes.post('/post', function(req, res){
 	var nameToAdd = req.body.naam;
 	
 	names.push(nameToAdd);
-	res.contentType('application/json');
 	res.status(200);
 	res.json({'Names' : names});
 });
 
 
 routes.get('/get', function(req, res){
-	
-	res.contentType('application/json');
 	res.status(200);
 	res.json({'Names' : names});
 });
 
-routes.put('/put', function(req, res){
+routes.post('/download', function(req, res){
+	
+	var fileName = req.body.file;
+	var legitFile = false;
+	
+	console.log(fileName);
+	
+	try { 
+		var file = new File([""], fileName);
+		legitFile = true;
+	} catch (error) {
+		
+	}
+	
+	// Files available: stock.jpg
+	if(legitFile){
+		res.download(file);
+		res.status(200);
+	}
+	else {
+		res.status(404)
+		.json({'Error 404: ' : 'No such file'});
+	}
+});
 
+routes.put('/put', function(req, res){
 	
 
+});
+
+
+routes.get('/*', function(req, res){
+	res.status(404)
+		.json({'Error' : 'Bad Request. Try   http://localhost:3000/api/v1/get'})
+			.end();
 });
 
 module.exports = routes;

@@ -16,6 +16,13 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json'}));
 
 app.use(logger('dev'));
 
+app.use('*', function (req, res, next){
+	res.contentType('application/json');
+	console.log('contenttype toegevoegd');
+	
+	next();
+});
+
 app.use('/api/v1', routes_v1);
 //app.use('/api/v2', routes_v2);
 
