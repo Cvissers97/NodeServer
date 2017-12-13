@@ -21,7 +21,7 @@ routes.delete('/delete', function(req, res){
 routes.post('/post', function(req, res){
 	
 	console.log(req.body);
-	var nameToAdd = req.body.name;
+	var nameToAdd = req.body.naam;
 	
 	names.push(nameToAdd);
 	res.contentType('application/json');
