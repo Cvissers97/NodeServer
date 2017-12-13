@@ -35,7 +35,7 @@ routes.get('/get', function(req, res){
 });
 
 routes.get('/download', function(req, res){
-		res.download(fileName);
+		res.download('stock.jpg');
 		res.status(200);
 });
 
