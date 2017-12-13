@@ -1,5 +1,6 @@
 var express = require('express');
 var routes = express.Router();
+const fs = require('fs');
 
 var names = ["Astral", "Scarlett", "Skarin"];
 
@@ -33,6 +34,11 @@ routes.get('/get', function(req, res){
 	res.json({'Names' : names});
 });
 
+routes.get('/download', function(req, res){
+		res.download(fileName);
+		res.status(200);
+});
+
 routes.post('/download', function(req, res){
 	
 	var fileName = req.body.file;
@@ -40,16 +46,16 @@ routes.post('/download', function(req, res){
 	
 	console.log(fileName);
 	
-	try { 
-		var file = new File([""], fileName);
+	try {
+		fs.open(fileName, 'a', function(foo, bar){});
 		legitFile = true;
 	} catch (error) {
-		
-	}
+		console.log(error);
+	}; 
 	
 	// Files available: stock.jpg
 	if(legitFile){
-		res.download(file);
+		res.download(fileName);
 		res.status(200);
 	}
 	else {
